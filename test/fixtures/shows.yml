@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  datetime: MyString
+  artsists: MyString
+  venue: MyString
+  city: MyString
+  region: MyString
+  country: MyString
+
+two:
+  datetime: MyString
+  artsists: MyString
+  venue: MyString
+  city: MyString
+  region: MyString
+  country: MyString
