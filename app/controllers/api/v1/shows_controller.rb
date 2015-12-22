@@ -1,5 +1,4 @@
-class ShowsController < ApplicationController
-
+class Api::V1::ShowsController < ApplicationController
   def index
 
     @shows = Show.all
@@ -15,9 +14,9 @@ class ShowsController < ApplicationController
     @show = Show.new(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
     if @show.valid?
       @show.save
-      render 'show'
+      render 'show.json'
     else
-      redirect_to '/shows'
+      redirect_to 'api/v1/shows'
     end
 
   end
@@ -38,19 +37,17 @@ class ShowsController < ApplicationController
     if @show
       @show.update(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
       respond_to do |format|
-        format.html { redirect_to "/shows" }
-        #format.json{ render json: "Show Deleted"}
+        format.html { redirect_to "/api/v1/shows" }
+        format.json{ render json: "Show Deleted"}
       end
     else
-      redirect_to 'shows/index'
+      redirect_to '/api/v1/shows/index'
     end
   end
 
   def destroy
     Show.find(params[:id]).destroy
-    respond_to do |format|
-      format.html { redirect_to "/shows" }
-      #format.json{ render json: "Show Deleted"}
+      render json: "Show Deleted"}
     end
   end
 end

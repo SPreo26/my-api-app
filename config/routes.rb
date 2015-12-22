@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  get '/shows/index', to: 'shows#index'
-  get '/shows/new', to: 'shows#new'
-  post '/shows', to: 'shows#create'
-  get '/shows/:id', to: 'shows#show'
-  get 'shows/:id/edit', to: 'shows#edit'
-  patch 'shows/:id', to: 'shows#update'
-  delete 'shows/:id', to: 'shows#destroy'
+  resources :shows
+  namespace :api do
+    namespace :v1 do
+      resources :shows
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
