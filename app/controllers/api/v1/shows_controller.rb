@@ -2,6 +2,7 @@ class Api::V1::ShowsController < ApplicationController
   def index
 
     @shows = Show.all
+    render json: @shows
 
   end
 
@@ -14,9 +15,9 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.new(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
     if @show.valid?
       @show.save
-      render 'show.json'
+      redirect_to "/api/v1/shows/#{@show.id}"
     else
-      redirect_to 'api/v1/shows'
+      redirect_to '/api/v1/shows'
     end
 
   end
@@ -24,7 +25,7 @@ class Api::V1::ShowsController < ApplicationController
   def show
 
     @show = Show.find(params[:id])
-    #render json: @show #shortcut to display all employee fields without using jbuilder
+    render json: @show #shortcut to display all employee fields without using jbuilder
 
   end
 
@@ -36,10 +37,7 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.find(params[:id])
     if @show
       @show.update(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
-      respond_to do |format|
-        format.html { redirect_to "/api/v1/shows" }
-        format.json{ render json: "Show Deleted"}
-      end
+        render json: "Show Deleted"
     else
       redirect_to '/api/v1/shows/index'
     end
@@ -47,7 +45,7 @@ class Api::V1::ShowsController < ApplicationController
 
   def destroy
     Show.find(params[:id]).destroy
-      render json: "Show Deleted"}
-    end
+      render json: "Show Deleted"
   end
+
 end

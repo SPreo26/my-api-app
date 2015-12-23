@@ -39,7 +39,7 @@ class ShowsController < ApplicationController
       @show.update(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
       respond_to do |format|
         format.html { redirect_to "/shows" }
-        #format.json{ render json: "Show Deleted"}
+        #format.json{ render json: "Show Updated"}
       end
     else
       redirect_to 'shows/index'
