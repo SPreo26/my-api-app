@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use  instead :null_session
   protect_from_forgery with: :null_session
   #:exception
-  before_action :restrict_access
+  # before_action :restrict_access
 
   private
 

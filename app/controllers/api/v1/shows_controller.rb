@@ -15,9 +15,9 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.new(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
     if @show.valid?
       @show.save
-      redirect_to "/api/v1/shows/#{@show.id}"
+      render json: @show
     else
-      redirect_to '/api/v1/shows'
+      render json: { errors: @show.errors.full_messages }, status: 422
     end
 
   end
@@ -37,15 +37,15 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.find(params[:id])
     if @show
       @show.update(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
-        render json: "Show Deleted"
+        render json: "Show Updated"
     else
-      redirect_to '/api/v1/shows/index'
+      render json: { errors: @show.errors.full_message }, status: 418
     end
   end
 
   def destroy
     Show.find(params[:id]).destroy
-      render json: "Show Deleted"
+    render json: {message: "Show deleted!"}
   end
 
 end

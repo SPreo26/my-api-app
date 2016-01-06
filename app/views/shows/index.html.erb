@@ -1,1 +1,43 @@
-Blah
+<div ng-app="app">
+  <div ng-controller="showsCtrl" ng-init="setup()">
+  <div>
+    Add Show:
+    <div>
+      Date & time: <input ng-model="newDatetime">
+    </div>
+    <div>
+      Artist name: <input ng-model="newArtist">
+    </div>
+    <div>
+      Venue: <input ng-model="newVenue">
+    </div>
+    <div>
+      City: <input ng-model="newCity">
+    </div>
+    <div>
+      Region: <input ng-model="newRegion">
+    </div>
+    <div>
+      Country: <input ng-model="newCountry">
+    </div>
+
+    <button ng-click="addShow(newDatetime, newArtist, newVenue, newCity, newRegion, newCountry)">Add Show</button>
+  </div>
+
+  <div>
+    Total Number of Sheoows: {{shows.length}}
+  </div>
+
+  <div ng-repeat="show in shows">
+    <p>{{show.datetime}}</p>
+    <p>{{show.artsits}}</p>
+    <p>{{show.venue}}</p>    
+    <p>{{show.city}}</p>
+    <p>{{show.region}}</p>
+    <p>{{show.country}}</p>
+      <a href="#" ng-click="deleteShow($index)">Delete</a>
+   </div>
+
+  
+  </div>
+</div>
