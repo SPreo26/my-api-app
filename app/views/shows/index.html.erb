@@ -1,4 +1,4 @@
-<div ng-app="app">
+  <div ng-app="app">
   <div ng-controller="showsCtrl" ng-init="setup()">
   <div>
     Add Show:
@@ -27,15 +27,23 @@
   <div>
     Total Number of Sheoows: {{shows.length}}
   </div>
+  <button ng-click="toggleOrder('artsist')">Sort by Artist</button>
+  <button ng-click="toggleOrder('datetime')">Sort By DateTime</button>
 
-  <div ng-repeat="show in shows">
+  <datalist id="artsistss">
+    <option ng-repeat="show in showsSearchResults">{{show.artsists}}</option>
+  </datalist>
+
+  <input ng-model="artistFilter" list="artsistss" ng-keyup="SearchViaDB('artsists', artistFilter)">
+
+  <div ng-repeat="show in shows | filter: {artsists: artistFilter} | orderBy:orderAttribute:reverse">
     <p>{{show.datetime}}</p>
-    <p>{{show.artsits}}</p>
+    <p>{{show.artsists}}</p>
     <p>{{show.venue}}</p>    
     <p>{{show.city}}</p>
     <p>{{show.region}}</p>
     <p>{{show.country}}</p>
-      <a href="#" ng-click="deleteShow($index)">Delete</a>
+      <a href="#" ng-click="deleteShow(show)">Delete</a>
    </div>
 
   

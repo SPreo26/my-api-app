@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :shows
   namespace :api do
     namespace :v1 do
+      get 'shows/search/', to: 'shows#search'
       resources :shows
     end
   end

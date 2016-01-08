@@ -10,6 +10,12 @@
 
     }
 
+    $scope.SearchViaDB = function(search_by, search_string){
+      $http.get("/api/v1/shows/search?search_by="+search_by + "&search_string=" +search_string).then(function(response) {
+        $scope.showsSearchResults = response.data;
+      });
+    }
+
     $scope.addShow = function(newDatetime, newArtistName, newVenue, newCity, newRegion, newCountry) {
       var newShow = {
         datetime: newDatetime,
@@ -30,7 +36,8 @@
     }
 
 
-    $scope.deleteShow = function(index){
+    $scope.deleteShow = function(person){
+      var index = $scope.shows.indexOf(show);
       var id = $scope.shows[index].id;
       $http.delete('/api/v1/shows/'+id, $scope.shows[index]).then(
         function(response){
@@ -42,8 +49,18 @@
       })
      
     }
+
+
+    $scope.toggleOrder = function(attribute){
+      if(attribute === $scope.orderAttribute) {
+        $scope.reverse = !$scope.reverse;
+      } else {
+        $scope.reverse = true;
+      }
+      $scope.orderAttribute = attribute;
+    }
     
     window.$scope = $scope;
   
-    });
-  }());
+  });
+}());

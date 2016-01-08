@@ -37,7 +37,7 @@ class Api::V1::ShowsController < ApplicationController
     @show = Show.find(params[:id])
     if @show
       @show.update(datetime: params[:datetime], artsists: params[:artsists], venue: params[:venue], city: params[:city], region: params[:region], country: params[:country])
-        render json: "Show Updated"
+        render json: {message: "Show Updated"}
     else
       render json: { errors: @show.errors.full_message }, status: 418
     end
@@ -46,6 +46,13 @@ class Api::V1::ShowsController < ApplicationController
   def destroy
     Show.find(params[:id]).destroy
     render json: {message: "Show deleted!"}
+  end
+
+  def search
+    search_string = params[:search_string].downcase
+    search_by = params[:search_by]
+    @shows_subset = Show.where("LOWER(#{search_by}) LIKE ?", "%#{search_string}%")
+    render json: @shows_subset
   end
 
 end
